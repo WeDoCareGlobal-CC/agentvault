@@ -9,3 +9,7 @@ data/
 coverage/
 .vitest/
 *.tsbuildinfo
+
+# Stray tooling artefacts
+os.devnull
+
