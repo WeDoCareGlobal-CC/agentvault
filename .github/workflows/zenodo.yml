@@ -31,7 +31,7 @@ jobs:
 
       - name: Prepare metadata
         run: |
-          zenodo deposit create \
+          python -m zenodo deposit create \
             --title "AgentVault – Enterprise Control Plane for AI Tools" \
             --upload-type software \
             --description "$(cat README.md | head -20)" \
@@ -47,9 +47,9 @@ jobs:
       - name: Upload all files
         run: |
           DEPOSIT_ID=$(jq -r '.id' zenodo_deposit.json)
-          zenodo deposit upload $DEPOSIT_ID --files LICENSE README.md CITATION.cff .zenodo.json package.json pnpm-workspace.yaml tsconfig.base.json packages/ examples/ docs/ .github/workflows/zenodo.yml
+          python -m zenodo deposit upload $DEPOSIT_ID --files LICENSE README.md CITATION.cff .zenodo.json package.json pnpm-workspace.yaml tsconfig.base.json packages/ examples/ docs/ .github/workflows/zenodo.yml
 
       - name: Publish deposit
         run: |
           DEPOSIT_ID=$(jq -r '.id' zenodo_deposit.json)
-          zenodo deposit publish $DEPOSIT_ID
+          python -m zenodo deposit publish $DEPOSIT_ID
