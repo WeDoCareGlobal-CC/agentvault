@@ -32,7 +32,7 @@ export const BRAND = {
     mono: "JetBrains Mono, ui-monospace, SFMono-Regular, Menlo, monospace",
   },
   license: "Apache-2.0",
-  version: "0.1.1",
+  version: "0.1.2",
   logo: "assets/logo.jpg",
 } as const;
 
