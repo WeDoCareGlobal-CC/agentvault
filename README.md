@@ -11,6 +11,7 @@ by <a href="https://github.com/we-do-care-global">We Do Care Global</a> &middot;
   <a href="LICENSE"><img alt="License" src="https://img.shields.io/badge/License-Apache--2.0-d9a95f?style=flat-square&labelColor=0a0b10"></a>
   <a href="https://www.npmjs.com/package/@we-do-care/agentvault"><img alt="npm" src="https://img.shields.io/npm/v/@we-do-care/agentvault?style=flat-square&labelColor=0a0b10&color=d9a95f"></a>
   <a href="https://orcid.org/0009-0009-8515-2727"><img alt="ORCID" src="https://img.shields.io/badge/ORCID-0009--0009--8515--2727-a6ce39?style=flat-square&labelColor=0a0b10"></a>
+  <a href="https://doi.org/10.5281/zenodo.22983557"><img alt="DOI" src="https://zenodo.org/badge/DOI/10.5281/zenodo.22983557.svg" style="flat-square&labelColor=0a0b10"></a>
   <a href="#"><img alt="Node" src="https://img.shields.io/badge/Node-20%2B-d9a95f?style=flat-square&labelColor=0a0b10"></a>
   <a href="#"><img alt="Enact" src="https://img.shields.io/badge/Enact-compatible-d9a95f?style=flat-square&labelColor=0a0b10"></a>
   <a href="#"><img alt="MCP" src="https://img.shields.io/badge/MCP-ready-8b90a6?style=flat-square&labelColor=0a0b10"></a>
