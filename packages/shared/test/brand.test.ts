@@ -9,7 +9,7 @@ describe("brand system", () => {
     expect(BRAND.org).toBe("We Do Care Global");
     expect(BRAND.product).toBe("AgentVault");
     expect(BRAND.license).toBe("Apache-2.0");
-    expect(BRAND.version).toBe("0.1.0");
+    expect(BRAND.version).toBe('0.1.1');
     expect(BRAND.orcid).toMatch(/^\d{4}-\d{4}-\d{4}-\d{3}[\dX]$/);
   });
 
