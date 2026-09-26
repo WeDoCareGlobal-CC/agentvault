@@ -27,6 +27,12 @@ importers:
         specifier: workspace:*
         version: link:../../packages/core
 
+  packages/adapters:
+    dependencies:
+      '@we-do-care/agentvault-shared':
+        specifier: workspace:*
+        version: link:../shared
+
   packages/cli:
     dependencies:
       '@we-do-care/agentvault-core':
