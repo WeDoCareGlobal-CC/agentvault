@@ -59,7 +59,7 @@ describe("agentvault CLI", () => {
   it("initialises the database and reports a healthy doctor run", () => {
     expect(cli(["init"])).toContain("Initialized AgentVault");
     const doctor = cli(["doctor"]);
-    expect(doctor).toContain("AgentVault v0.1.0");
+    expect(doctor).toContain("AgentVault v0.1.2");
     expect(doctor).toContain("Audit chain   : ok");
     expect(doctor).toContain("AGENTVAULT_MASTER_KEY");
   });
