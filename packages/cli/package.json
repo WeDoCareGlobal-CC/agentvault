@@ -1,6 +1,6 @@
 {
   "name": "@we-do-care/agentvault",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Enterprise Control Plane for AI Tools - by We Do Care Global",
   "license": "Apache-2.0",
   "author": "Emir Perla <emirperla96@gmail.com> (https://orcid.org/0009-0009-8515-2727)",
@@ -9,13 +9,28 @@
     "type": "git",
     "url": "https://github.com/we-do-care-global/agentvault.git"
   },
-  "keywords": ["ai", "agents", "tool-registry", "secrets-management", "governance", "telemetry", "enact", "mcp"],
+  "keywords": [
+    "ai",
+    "agents",
+    "tool-registry",
+    "secrets-management",
+    "governance",
+    "telemetry",
+    "enact",
+    "mcp"
+  ],
   "type": "module",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
-  "bin": { "agentvault": "./dist/index.js" },
-  "publishConfig": { "access": "public" },
-  "files": ["dist"],
+  "bin": {
+    "agentvault": "./dist/index.js"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -b && node -e \"require('node:fs').chmodSync('dist/index.js', 0o755)\"",
     "test": "pnpm build && vitest run",

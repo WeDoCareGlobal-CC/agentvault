@@ -1,6 +1,6 @@
 {
   "name": "@we-do-care/agentvault-shared",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "Apache-2.0",
   "author": "Emir Perla <emirperla96@gmail.com> (https://orcid.org/0009-0009-8515-2727)",
   "type": "module",
@@ -12,11 +12,15 @@
       "default": "./dist/index.js"
     }
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "build": "tsc -b",
     "test": "vitest run",
     "typecheck": "tsc -b && tsc -p tsconfig.test.json"
   },
-  "dependencies": { "zod": "^3.23.8" }
+  "dependencies": {
+    "zod": "^3.23.8"
+  }
 }

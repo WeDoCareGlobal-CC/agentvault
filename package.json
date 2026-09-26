@@ -1,7 +1,7 @@
 {
   "name": "agentvault-monorepo",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.1.1",
   "license": "Apache-2.0",
   "author": "Emir Perla <emirperla96@gmail.com> (https://orcid.org/0009-0009-8515-2727)",
   "homepage": "https://we-do-care-global.github.io/agentvault/",
@@ -10,7 +10,9 @@
     "url": "https://github.com/we-do-care-global/agentvault.git"
   },
   "packageManager": "pnpm@11.18.0",
-  "engines": { "node": ">=20" },
+  "engines": {
+    "node": ">=20"
+  },
   "scripts": {
     "build": "pnpm -r build",
     "test": "pnpm -r test",
