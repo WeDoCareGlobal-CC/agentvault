@@ -27,7 +27,7 @@ jobs:
       - name: Get version from tag
         id: version
         run: |
-          echo "version=${GITHUB_REF#refs/tags/v}}" >> $GITHUB_OUTPUT
+          echo "version=${GITHUB_REF#refs/tags/v}" >> $GITHUB_OUTPUT
 
       - name: Prepare metadata
         run: |
