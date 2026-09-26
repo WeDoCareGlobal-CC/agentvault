@@ -48,7 +48,7 @@ describe("health & version", () => {
   it("reports the brand on /health and /version", async () => {
     const h = await app.inject({ method: "GET", url: "/health" });
     expect(h.statusCode).toBe(200);
-    expect(h.json()).toEqual({ status: "ok", service: "AgentVault", version: "0.1.1" });
+    expect(h.json()).toEqual({ status: "ok", service: "AgentVault", version: "0.1.2" });
 
     const v = await app.inject({ method: "GET", url: "/version" });
     expect(v.json()).toMatchObject({ brand: "We Do Care Global", orcid: "0009-0009-8515-2727" });

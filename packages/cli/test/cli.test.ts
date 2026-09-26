@@ -47,7 +47,7 @@ afterAll(() => {
 
 describe("agentvault CLI", () => {
   it("reports its version and help with the brand line", () => {
-    expect(cli(["--version"]).trim()).toBe("0.1.1");
+    expect(cli(["--version"]).trim()).toBe("0.1.2");
     const help = cli(["--help"]);
     expect(help).toContain("agentvault");
     expect(help).toContain("We Do Care Global");
