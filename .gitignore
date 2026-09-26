@@ -13,3 +13,7 @@ coverage/
 # Stray tooling artefacts
 os.devnull
 
+
+# Stray artifacts
+os.devnull
+
