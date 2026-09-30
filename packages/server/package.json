@@ -21,12 +21,13 @@
     "typecheck": "tsc -b && tsc -p tsconfig.test.json"
   },
   "dependencies": {
-    "@we-do-care/agentvault-shared": "workspace:*",
-    "@we-do-care/agentvault-core": "workspace:*",
-    "@we-do-care/agentvault-vault": "workspace:*",
-    "@we-do-care/agentvault-governance": "workspace:*",
-    "@we-do-care/agentvault-telemetry": "workspace:*",
-    "fastify": "^5.0.0",
-    "@fastify/cors": "^10.0.0"
-  }
+      "@we-do-care/agentvault-shared": "workspace:*",
+      "@we-do-care/agentvault-core": "workspace:*",
+      "@we-do-care/agentvault-vault": "workspace:*",
+      "@we-do-care/agentvault-governance": "workspace:*",
+      "@we-do-care/agentvault-telemetry": "workspace:*",
+      "fastify": "^5.0.0",
+      "@fastify/cors": "^10.0.0",
+      "prom-client": "^15.1.0"
+    }
 }

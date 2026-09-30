@@ -9,6 +9,7 @@ import { SecretVault, AuditLedger } from "@we-do-care/agentvault-vault";
 import { PolicyStore, evaluate, SlidingWindowCounter, can } from "@we-do-care/agentvault-governance";
 import { Telemetry } from "@we-do-care/agentvault-telemetry";
 import { AgentVaultError, BRAND, type Role, type Context, type TrustLevel, type PolicyRule } from "@we-do-care/agentvault-shared";
+import { Registry, Counter, Histogram, collectDefaultMetrics } from "prom-client";
 
 export interface ServerConfig {
   dbPath: string;
@@ -24,6 +25,38 @@ const VALID_TRUST: TrustLevel[] = ["Untrusted", "Low", "Medium", "High", "System
 /** Flat per-call cost used for budget accounting in v0.1.0. */
 const COST_PER_CALL_USD = 0.0023;
 
+// Prometheus metrics
+const register = new Registry();
+collectDefaultMetrics({ register });
+
+const httpRequestsTotal = new Counter({
+  name: "http_requests_total",
+  help: "Total HTTP requests",
+  labelNames: ["method", "endpoint", "status"],
+  registers: [register],
+});
+
+const httpRequestDuration = new Histogram({
+  name: "http_request_duration_seconds",
+  help: "HTTP request latency in seconds",
+  labelNames: ["method", "endpoint"],
+  registers: [register],
+});
+
+const toolCallsTotal = new Counter({
+  name: "tool_calls_total",
+  help: "Total tool calls",
+  labelNames: ["tool", "decision"],
+  registers: [register],
+});
+
+const toolCallDuration = new Histogram({
+  name: "tool_call_duration_seconds",
+  help: "Tool call duration in seconds",
+  labelNames: ["tool"],
+  registers: [register],
+});
+
 export async function buildApp(cfg: ServerConfig): Promise<FastifyInstance> {
   const db = openDb(cfg.dbPath);
   const tenant = cfg.tenant ?? "default";
@@ -36,6 +69,23 @@ export async function buildApp(cfg: ServerConfig): Promise<FastifyInstance> {
 
   const app = Fastify({ logger: cfg.logger === false ? false : { level: "info" } });
   await app.register(cors, { origin: true });
+
+  // Metrics endpoint
+  app.get("/metrics", async (_req, reply) => {
+    reply.header("Content-Type", register.contentType);
+    return register.metrics();
+  });
+
+  // Middleware for metrics
+  app.addHook("onRequest", async (request, _reply) => {
+    request.startTime = process.hrtime.bigint();
+  });
+
+  app.addHook("onResponse", async (request, reply) => {
+    const duration = Number(process.hrtime.bigint() - (request.startTime as bigint)) / 1e9;
+    httpRequestsTotal.inc({ method: request.method, endpoint: request.routeOptions?.url ?? "unknown", status: reply.statusCode.toString() });
+    httpRequestDuration.observe({ method: request.method, endpoint: request.routeOptions?.url ?? "unknown" }, duration);
+  });
 
   // ---- health ----
   app.get("/health", async () => ({ status: "ok", service: BRAND.product, version: BRAND.version }));
@@ -176,6 +226,7 @@ export async function buildApp(cfg: ServerConfig): Promise<FastifyInstance> {
         tool: name, version: registered.version, agentUri, provider: "internal",
         latencyMs: Date.now() - started, status: "denied", errorClass: decision.reason,
       });
+      toolCallsTotal.inc({ tool: name, decision: "denied" });
       return reply.code(403).send({
         status: "denied", reason: decision.reason,
         policy_id: decision.policyId, retry_after_seconds: 30,
@@ -193,6 +244,8 @@ export async function buildApp(cfg: ServerConfig): Promise<FastifyInstance> {
       tool: name, version: registered.version, agentUri, provider: "internal",
       latencyMs: latency, status: "ok", costUsd: COST_PER_CALL_USD,
     });
+    toolCallsTotal.inc({ tool: name, decision: "allowed" });
+    toolCallDuration.observe({ tool: name }, latency / 1000);
 
     return {
       status: decision.decision === "approval" ? "approval_required" : "ok",
